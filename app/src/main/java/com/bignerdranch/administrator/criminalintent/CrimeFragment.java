@@ -80,12 +80,10 @@ public class CrimeFragment extends Fragment {
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
-                FragmentManager fragmentManager = getFragmentManager();
-                DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
-                dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
-                dialog.show(fragmentManager, DIALOG_DATE);
-                */
+                /**
+                 * 更改代码为以下代码，以startActivityForResult(intent, REQUEST_DATE);启动活动
+                 * 而不是启动一个dialog
+                 */
                 Intent intent = new Intent(getActivity(), DateActivity.class);
                 startActivityForResult(intent, REQUEST_DATE);
             }
@@ -107,6 +105,9 @@ public class CrimeFragment extends Fragment {
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
+        /**
+         * 接收活动返回的data值
+         */
         if (requestCode == REQUEST_DATE) {
             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setDate(date);

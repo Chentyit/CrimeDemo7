@@ -40,10 +40,7 @@ public class DatePickerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        //Date date = (Date) getArguments().getSerializable(ARG_DATE);
-
         Calendar calendar = Calendar.getInstance();
-        //calendar.setTime(date);
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -61,6 +58,9 @@ public class DatePickerFragment extends Fragment {
                 int month = mDatePicker.getMonth();
                 int day = mDatePicker.getDayOfMonth();
                 Date date = new GregorianCalendar(year, month, day).getTime();
+                /**
+                 * 将data的值传到intent中，以便回传给CrimeFragment
+                 */
                 Intent intent = new Intent();
                 intent.putExtra(EXTRA_DATE, date);
                 getActivity().setResult(Activity.RESULT_OK, intent);
@@ -69,16 +69,6 @@ public class DatePickerFragment extends Fragment {
         });
 
         return view;
-    }
-
-    private void sendResult(int resultCode, Date date) {
-        if (getTargetFragment() == null) {
-            return;
-        }
-        Intent intent = new Intent();
-        intent.putExtra(EXTRA_DATE, date);
-
-        getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
     }
 
 }
